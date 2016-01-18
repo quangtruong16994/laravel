@@ -1,0 +1,9 @@
+.fuse_*
+HTML (Rails).tmLanguage
+*.tmLanguage
+sublimelinter.version
+.idea
+.DS_Store
+Thumbs.db
+.project
+/nbproject/private/
