@@ -2,6 +2,10 @@
 
 @section('title', 'Quản lý tài khoản')
 
+@section('user', Auth::user()["fullname"])
+
+@section('active-menu', 'class="active"')
+
 @section('content')
     <div class="row">
         <div id="breadcrumb" class="col-md-12">
@@ -56,12 +60,14 @@
                                 <td>{{ $user["address"] }}</td>
                                 <td class="center">
                                     <form name="editUser" action="user/edit" method="post">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <input type="hidden" name="id" value="{{ $user["id"] }}">
                                         <button class="btn btn-primary" type="submit" name="btnEdit">Sửa</button>
                                     </form>
                                 </td>
                                 <td class="center">
                                     <form name="deleteUser" action="user/delete" method="post">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <input type="hidden" name="id" value="{{ $user["id"] }}">
                                         <button class="btn btn-danger" type="submit" name="btnDelete">Xóa</button>
                                     </form>

@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use View;
-use App\User;
 use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 
 class HomeController extends Controller {
@@ -23,11 +19,20 @@ class HomeController extends Controller {
     }
 
     public function login() {
-        $email = Input::get('email');
-        $password = Input::get('password');
-        var_dump(Auth::attempt(array('email' => $email, 'password' => $password)));
+        $rules = array(
+            'email'=>'required|email',
+            'password'=>'required|min:6'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if( $validator->fails() )
+            return view('/login')->withInput(Input::except('password'))->withErrors($validator);
 
-        if (Auth::attempt(array('email' => $email, 'password' => $password)))
+        $userdata = array(
+            'email'=>Input::get('email'),
+            'password'=>Input::get('password'),
+        );
+
+        if (Auth::attempt($userdata))
         {
             return view::make('/index');
         } else {

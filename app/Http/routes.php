@@ -11,26 +11,6 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-
-Route::post('/login', 'HomeController@login');
-
-Route::get('/user', 'UserController@listUser');
-
-Route::get('/user/create', function () {
-    return view('user.create');
-});
-
-Route::post('/user/add', 'UserController@add');
-
-Route::post('/user/edit', function () {
-    return view('user.edit');
-});
-
-Route::post('/user/delete', 'UserController@delete');
-
-
-Route::get('/article', 'ArticleController@listArticle');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -48,5 +28,36 @@ Route::get('login', [
 ]);
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::get('/', 'HomeController@index');
+
+    Route::post('/login', 'HomeController@login');
+
+    Route::get('/user', 'UserController@listUser');
+
+    Route::get('/user/create', function () {
+        return view('user.create');
+    });
+
+    Route::post('/user/add', 'UserController@add');
+
+    Route::post('/user/edit', function () {
+        return view('user.edit');
+    });
+
+    Route::post('/user/delete', 'UserController@delete');
+
+    Route::get('/article', 'ArticleController@showArticles');
+
+    Route::post('/article/delete', 'ArticleController@delete');
+
+    Route::get  ('/article/new', function () {
+        return view('article.new');
+    });
+
+    Route::get  ('/article/add', 'ArticleController@addArticle');
+});
+
+
+Route::get ('/home', function () {
+    return view('blog.index');
 });

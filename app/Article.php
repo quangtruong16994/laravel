@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Article extends Model implements Authenticatable
 {
+    use \Illuminate\Auth\Authenticatable;
+    protected $primaryKey = 'id';
     //
     public function category()
     {

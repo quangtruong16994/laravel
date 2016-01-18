@@ -2,16 +2,21 @@
 
 @section('title', 'Quản lý bài viết')
 
+@section('user', Auth::user()["fullname"])
+
+@section('active-menu', 'class="active"')
+
 @section('content')
     <div class="row">
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#">Quản lý tài khoản</a></li>
-                <li><a href="#">Tài khoản người dùng</a></li>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/article">Quản lý bài viết</a></li>
             </ol>
         </div>
     </div>
+
+    <a href="/article/new" class="btn btn-default" style="margin: 0 0 10px 0;">Thêm bài viết</a>
 
     <div class="row">
         <div class="col-xs-12">
@@ -39,13 +44,13 @@
                             <th class="th center">Chuyên mục</th>
                             <th class="th center">Trạng thái</th>
                             <th colspan="2" class="th center">---</th>
-                            {{--                            <th class="th center">Xem</th>
-                                                        <th class="th center">Sửa</th>
-                                                        <th class="th center">Xóa</th>--}}
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($listArticle as $article)
+                        <div class="articles">
+                            @include('article.articles')
+                        </div>
+                        {{--@foreach ($listArticle as $article)
                             <tr>
                                 <td class="center">{{ $article["id"] }}</td>
                                 <td>{{ $article["title"] }}</td>
@@ -65,7 +70,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach--}}
                         </tbody>
                         <tfoot>
                         <tr>
@@ -84,6 +89,37 @@
         </div>
     </div>
 
+    <script>
+        $(window).on('hashchange', function() {
+            if (window.location.hash) {
+                var page = window.location.hash.replace('#', '');
+                if (page == Number.NaN || page <= 0) {
+                    return false;
+                } else {
+                    getArticles(page);
+                }
+            }
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '.pagination a', function (e) {
+                getPosts($(this).attr('href').split('page=')[1]);
+                e.preventDefault();
+            });
+        });
+
+        function getArticles(page) {
+            $.ajax({
+                url : '?page=' + page,
+                dataType: 'json',
+            }).done(function (data) {
+                $('.posts').html(data);
+                location.hash = page;
+            }).fail(function () {
+                alert('Posts could not be loaded.');
+            });
+        }
+    </script>
 
     @yield('update-modal')
 @endsection

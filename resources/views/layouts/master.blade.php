@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="{{ asset("public/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
 
-    <link rel="stylesheet" href="{{ asset("public/css/font-awesome.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/font-awesome.css") }}">
 
-    <link rel="stylesheet" href="{{ asset("public/css/styleads.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/admin.css") }}">
 
     <script src="public/js/jquery.min.js"></script>
 </head>
@@ -20,7 +20,7 @@
     <div class="container-fluid expanded-panel">
         <div class="row">
             <div id="logo" class="col-xs-12 col-sm-2">
-                <a href="AdminHome.jsp">Mobile Store</a>
+                <a href="/">Quang Truong</a>
             </div>
             <div id="top-panel" class="col-xs-12 col-sm-10">
                 <div class="row">
@@ -36,12 +36,12 @@
 
                             <li class="dropdown"><a href="#" class="dropdown-toggle account" data-toggle="dropdown">
                                     <div class="avatar">
-                                        <img src="public/imgs/avatar.jpg"
+                                        <img src="{{ asset("imgs/avatar.jpg") }}"
                                              class="img-rounded" alt="avatar"/>
                                     </div>
                                     <i class="fa fa-angle-down pull-right"></i>
                                     <div class="user-mini pull-right">
-                                        <span class="welcome">Chào,</span> <span>Sói</span>
+                                        <span class="welcome">Chào,</span> <span>@yield('user')</span>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -75,17 +75,18 @@
     <div class="row">
         <div id="sidebar-left" class="col-xs-2 col-sm-2">
             <ul class="nav main-menu">
-                <li><a href="UserLogin" class="active"> <i class="fa fa-dashboard"></i> <span
+                <li><a href="/"> <i class="fa fa-dashboard"></i> <span
                                 class="hidden-xs"
                         >Trang chủ</span>
                     </a></li>
 
-                <li class="dropdown"><a href="/Laravel/user" class="dropdown-toggle"> <i class="fa fa-table"></i> <span
+                <li><a href="/user"> <i class="fa fa-table"></i> <span
                                 class="hidden-xs"
                         >Quản lý tài khoản</span>
                     </a>
                 </li>
-                <li class="dropdown"><a href="/Laravel/article" class="dropdown-toggle"> <i class="fa fa-table"></i> <span
+                <li><a href="/article"> <i
+                                class="fa fa-table"></i> <span
                                 class="hidden-xs"
                         >Quản lý bài viết</span>
                     </a>
@@ -104,17 +105,17 @@
 
 <a href="#" class="scrollToTop" style="float: right;">Lên đầu trang</a>
 
-<script src="{{ asset("public/js/jquery.min.js") }}"></script>
+<script src="{{ asset("js/jquery.min.js") }}"></script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset("public/js/bootstrap.min.js") }}"></script>
+<script src="{{ asset("js/bootstrap.min.js") }}"></script>
 
 <!-- All functions for this theme + document.ready processing -->
-<script src="{{ asset("public/js/devoops.js") }}"></script>
+<script src="{{ asset("js/devoops.js") }}"></script>
 
-<script src="{{ asset("public/js/jquery.dataTables.min.js") }}"></script>
+<script src="{{ asset("js/jquery.dataTables.min.js") }}"></script>
 
 </body>
 </html>
