@@ -24,6 +24,8 @@ class ArticleController extends Controller {
         $article = new Article();
         $list = $article->all()->toArray();
         return view('article.index')->with('listArticle', $list);
+        //có thể có cách khác assign biến ra
+        //return view('article.index',compact('list')); <== phần này ở ngoài sẽ đọc luôn cái list
     }
 
     public function addArticle(Request $request) {
@@ -58,7 +60,13 @@ class ArticleController extends Controller {
         $article = Article::find($id);
         $article->delete();
 
+        //return redirect()->action('ArticleController@showArticles');
+        //$user = User::find($id);
+        //$user->delete();
+
         return redirect()->action('ArticleController@showArticles');
+        //hoặc em có thể redirect kiểu khác
+        //return redirect('url_can_redirect') <= cách này thì nó bớt phải tính toán hơn
     }
 
     function remove_utf8($string)
