@@ -39,8 +39,8 @@
                     <div class="no-move"></div>
                 </div>
                 <div class="box-content">
-                    <form class="form-horizontal" role="form" name="frmAddArticle" action="/article/add"
-                          method="post   ">
+                    <form class="form-horizontal" role="form" name="frmAddArticle" action="/article/add" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Tiêu đề</label>
                             <div class="col-sm-4">
@@ -63,7 +63,7 @@
                                 <textarea class="form-control" id="areaContent" name="areaContent"></textarea>
                                 <input type="hidden" id="articleContent" name="articleContent" value="">
                                 <script type="text/javascript">
-                                    CKEDITOR.replace("areaContent");
+                                    CKEDITOR.replace("areaContent", CKEDITOR.config.allowedContent=true);
                                 </script>
                                 <script type="text/javascript">
                                     function getContent() {

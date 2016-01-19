@@ -12,7 +12,15 @@
 <body>
 <div class="container-fluid">
     <div id="page-login" class="row">
-        <div id="message"></div>
+
+        @if ( $errors->count() > 0 )
+            <div id="message">
+                    @foreach( $errors->all() as $message )
+                        {{ $message }} <br/>
+                    @endforeach
+            </div>
+        @endif
+
         <div class="col-xs-12 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
             <div class="box">
                 <div class="box-content">
@@ -20,14 +28,17 @@
                         <h3 class="page-header">Đăng nhập</h3>
                     </div>
                     <form id="login-form" action="/login" method="post">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <div class="form-group">
                             <label class="control-label">Email: </label> <input type="text" class="form-control"
-                                                                                name="email" value="{{ old('email') }}" placeholder="Email"/>
+                                                                                name="email" value="{{ old('email') }}"
+                                                                                placeholder="Email"/>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Mật khẩu: </label> <input type="password" class="form-control"
-                                                                                   name="password" value="{{ old('password') }}" placeholder="Mật khẩu"/>
+                                                                                   name="password"
+                                                                                   value="{{ old('password') }}"
+                                                                                   placeholder="Mật khẩu"/>
                         </div>
                         <div class="text-center">
                             <button id="login-button" type="submit" class="btn btn-primary">

@@ -30,7 +30,13 @@ Route::get('login', [
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'HomeController@index');
 
+    Route::get('/login', function(){
+        return view('login');
+    });
+
     Route::post('/login', 'HomeController@login');
+
+    Route::get('/logout', 'HomeController@logout');
 
     Route::get('/user', 'UserController@listUser');
 
@@ -54,10 +60,12 @@ Route::group(['middleware' => ['web']], function () {
         return view('article.new');
     });
 
-    Route::get  ('/article/add', 'ArticleController@addArticle');
+    Route::post('/article/add', 'ArticleController@addArticle');
 });
 
 
-Route::get ('/home', function () {
-    return view('blog.index');
-});
+Route::get ('/home', 'BlogController@index');
+
+Route::get('/{cate}', 'BlogController@getArticles');
+
+Route::get('/{cate}/{arti}', 'BlogController@getArticle');

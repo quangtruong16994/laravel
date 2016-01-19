@@ -47,17 +47,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#"> <i class="fa fa-user"></i> <span>Thông tin cá nhân</span>
                                         </a></li>
-                                    <li><a href="ajax/page_messages.html" class="ajax-link"> <i
-                                                    class="fa fa-envelope"></i> <span>Tin
-													nhắn</span>
-                                        </a></li>
-                                    <li><a href="ajax/gallery_simple.html" class="ajax-link"> <i
-                                                    class="fa fa-picture-o"></i> <span>Albums</span>
-                                        </a></li>
-                                    <li><a href="ajax/calendar.html" class="ajax-link"> <i class="fa fa-tasks"></i>
-                                            <span>Tasks</span>
-                                        </a></li>
-                                    <li><a href="#"> <i class="fa fa-power-off"></i> <span>Đăng xuất</span>
+                                    <li><a href="/logout"> <i class="fa fa-power-off"></i> <span>Đăng xuất</span>
                                         </a></li>
                                 </ul>
                             </li>
@@ -80,13 +70,13 @@
                         >Trang chủ</span>
                     </a></li>
 
-                <li><a href="/user"> <i class="fa fa-table"></i> <span
+                <li><a href="/user"> <i class="fa fa-user"></i> <span
                                 class="hidden-xs"
                         >Quản lý tài khoản</span>
                     </a>
                 </li>
                 <li><a href="/article"> <i
-                                class="fa fa-table"></i> <span
+                                class="fa fa-file-text"></i> <span
                                 class="hidden-xs"
                         >Quản lý bài viết</span>
                     </a>

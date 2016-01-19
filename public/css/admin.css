@@ -2571,10 +2571,10 @@ ul.DTTT_dropdown.dropdown-menu>li:hover>a {
 	font-size: 15px;
 	margin: 80px auto 0 auto;
 	width: intrinsic;			/* độ rộng div tương ứng với nội dung*/
-	height: 30px;
-	/* background: #373737 url("../imgs/bg.png") 0 0 repeat; */
+	height: auto;
+	background: #373737 url("../imgs/bg.png") 0 0 repeat;
 	border-radius: 5px;
-	visibility: hidden;
+	visibility: visible;
 }
 
 #page-500, #page-login {
