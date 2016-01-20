@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Article;
-use App\User;
 use Illuminate\Support\Facades\Input;
 use Request;
+use Response;
 use Auth;
 use View;
 
-class ArticleController extends Controller {
+class ArticleController extends AdminController {
 
     public function showArticles()
     {
-        $articles = Article::paginate(3);
+        $articles = Article::paginate(5);
         if (Request::ajax()) {
-            return Response::json(View::make('articles', array('articles' => $articles))->render());
+            return Response::json(View::make('admin.article.articles', array('articles' => $articles))->render());
         }
-        return View::make('article.index', array('articles' => $articles));
+        return View::make('admin.article.index', array('articles' => $articles));
     }
 
     public function listArticle() {
         $article = new Article();
         $list = $article->all()->toArray();
-        return view('article.index')->with('listArticle', $list);
+        return view('admin.article.index')->with('listArticle', $list);
         //có thể có cách khác assign biến ra
         //return view('article.index',compact('list')); <== phần này ở ngoài sẽ đọc luôn cái list
     }
@@ -52,7 +52,14 @@ class ArticleController extends Controller {
         $article = new Article();
         $article->insert($data);
 
-        return view("article.new");
+        return view("admin.article.new");
+    }
+
+    public function getArticle() {
+        $id = Input::get('id');
+        $article = Article::find($id);
+
+        return view('admin.article.update',compact('article'));
     }
 
     public function delete() {
@@ -64,9 +71,24 @@ class ArticleController extends Controller {
         //$user = User::find($id);
         //$user->delete();
 
-        return redirect()->action('ArticleController@showArticles');
+        return redirect('/admin/article/');
         //hoặc em có thể redirect kiểu khác
         //return redirect('url_can_redirect') <= cách này thì nó bớt phải tính toán hơn
+    }
+
+    public function update(Request $request){
+        $all = $request::all();
+        $article = Article::find($all["id"]);
+
+        $article["title"] = $all["title"];
+        $article["alias"] = $this->remove_utf8($all["title"]);
+        $article["summary"] = $all["summary"];
+        $article["content"] = $all["articleContent"];
+        $article["category_id"] = $all["category"];
+        $article["author"] = $all["author"];
+
+        $article->save();
+        return redirect('/admin/article/');
     }
 
     function remove_utf8($string)

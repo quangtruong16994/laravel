@@ -1,4 +1,4 @@
-@extends('user.index')
+@extends('admin.user.index')
 
 @section('update-modal')
     <form name="frmUpdate" action="" method="post">

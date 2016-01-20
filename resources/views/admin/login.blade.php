@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <h3 class="page-header">Đăng nhập</h3>
                     </div>
-                    <form id="login-form" action="/login" method="post">
+                    <form id="login-form" action="/admin/login" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <div class="form-group">
                             <label class="control-label">Email: </label> <input type="text" class="form-control"

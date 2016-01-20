@@ -12,7 +12,14 @@
 
     <link rel="stylesheet" href="{{ asset("css/admin.css") }}">
 
-    <script src="public/js/jquery.min.js"></script>
+    <script src="{{ asset("js/jquery.min.js") }}"></script>
+
+    <style>
+        table {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 <!--Start Header-->
@@ -20,7 +27,7 @@
     <div class="container-fluid expanded-panel">
         <div class="row">
             <div id="logo" class="col-xs-12 col-sm-2">
-                <a href="/">Quang Truong</a>
+                <a href="/admin/">Quang Truong</a>
             </div>
             <div id="top-panel" class="col-xs-12 col-sm-10">
                 <div class="row">
@@ -47,7 +54,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#"> <i class="fa fa-user"></i> <span>Thông tin cá nhân</span>
                                         </a></li>
-                                    <li><a href="/logout"> <i class="fa fa-power-off"></i> <span>Đăng xuất</span>
+                                    <li><a href="/admin/logout"> <i class="fa fa-power-off"></i> <span>Đăng xuất</span>
                                         </a></li>
                                 </ul>
                             </li>
@@ -65,17 +72,17 @@
     <div class="row">
         <div id="sidebar-left" class="col-xs-2 col-sm-2">
             <ul class="nav main-menu">
-                <li><a href="/"> <i class="fa fa-dashboard"></i> <span
+                <li><a href="/admin/"> <i class="fa fa-dashboard"></i> <span
                                 class="hidden-xs"
                         >Trang chủ</span>
                     </a></li>
 
-                <li><a href="/user"> <i class="fa fa-user"></i> <span
+                <li><a href="/admin/user"> <i class="fa fa-user"></i> <span
                                 class="hidden-xs"
                         >Quản lý tài khoản</span>
                     </a>
                 </li>
-                <li><a href="/article"> <i
+                <li><a href="/admin/article"> <i
                                 class="fa fa-file-text"></i> <span
                                 class="hidden-xs"
                         >Quản lý bài viết</span>

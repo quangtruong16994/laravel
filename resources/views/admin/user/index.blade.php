@@ -10,9 +10,8 @@
     <div class="row">
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#">Quản lý tài khoản</a></li>
-                <li><a href="#">Tài khoản người dùng</a></li>
+                <li><a href="/admin/">Trang chủ</a></li>
+                <li><a href="/admin/user">Quản lý tài khoản</a></li>
             </ol>
         </div>
     </div>
@@ -59,14 +58,14 @@
                                 <td>{{ $user["phone"] }}</td>
                                 <td>{{ $user["address"] }}</td>
                                 <td class="center">
-                                    <form name="editUser" action="user/edit" method="post">
+                                    <form name="editUser" action="/admin/user/edit" method="post">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <input type="hidden" name="id" value="{{ $user["id"] }}">
                                         <button class="btn btn-primary" type="submit" name="btnEdit">Sửa</button>
                                     </form>
                                 </td>
                                 <td class="center">
-                                    <form name="deleteUser" action="user/delete" method="post">
+                                    <form name="deleteUser" action="/admin/user/delete" method="post">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <input type="hidden" name="id" value="{{ $user["id"] }}">
                                         <button class="btn btn-danger" type="submit" name="btnDelete">Xóa</button>

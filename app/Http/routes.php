@@ -24,48 +24,64 @@
 
 Route::get('login', [
     'middleware' => 'auth',
-    'uses' => 'HomeController@login'
+    'uses' => 'Admin\HomeController@login'
 ]);
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'HomeController@index');
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/', 'Admin\HomeController@index');
 
-    Route::get('/login', function(){
-        return view('login');
+        Route::get('/login', function () {
+            return view('admin.login');
+        });
+
+        Route::post('/login', 'Admin\HomeController@login');
+
+        Route::get('/logout', 'Admin\HomeController@logout');
+
+
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', 'Admin\UserController@listUser');
+
+            Route::get('/new', function () {
+                return view('user.new');
+            });
+
+            Route::post('/add', 'Admin\UserController@add');
+
+            Route::post('/edit', function () {
+                return view('user.edit');
+            });
+
+            Route::post('/delete', 'Admin\UserController@delete');
+        });
+
+
+
+        Route::group(['prefix' => 'article'], function () {
+            Route::get('/', 'Admin\ArticleController@showArticles');
+
+            Route::post('edit', 'Admin\ArticleController@getArticle');
+
+            Route::post('update', 'Admin\ArticleController@update');
+
+            Route::post('delete', 'Admin\ArticleController@delete');
+
+            Route::get('new', function () {
+                return view('admin.article.new');
+            });
+
+            Route::post('add', 'Admin\ArticleController@addArticle');
+        });
     });
-
-    Route::post('/login', 'HomeController@login');
-
-    Route::get('/logout', 'HomeController@logout');
-
-    Route::get('/user', 'UserController@listUser');
-
-    Route::get('/user/create', function () {
-        return view('user.create');
-    });
-
-    Route::post('/user/add', 'UserController@add');
-
-    Route::post('/user/edit', function () {
-        return view('user.edit');
-    });
-
-    Route::post('/user/delete', 'UserController@delete');
-
-    Route::get('/article', 'ArticleController@showArticles');
-
-    Route::post('/article/delete', 'ArticleController@delete');
-
-    Route::get  ('/article/new', function () {
-        return view('article.new');
-    });
-
-    Route::post('/article/add', 'ArticleController@addArticle');
 });
 
+Route::group(['prefix' => '/'], function () {
 
-Route::get ('/home', 'BlogController@index');
+    Route::get('/', 'Front\BlogController@index');
 
-Route::get('/{cate}', 'BlogController@getArticles');
+    Route::get('/{cate}', 'Front\BlogController@getArticles');
 
-Route::get('/{cate}/{arti}', 'BlogController@getArticle');
+    Route::get('/{cate}/{arti}', 'Front\BlogController@getArticle');
+});

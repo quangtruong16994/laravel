@@ -1,5 +1,7 @@
 @extends('layouts.homemaster')
 
+@section('title', 'Blog Home')
+
 @section('menu-category')
     @foreach($listCategory as $category)
         <li>
@@ -22,7 +24,7 @@
             <a href="/{{ \App\Article::find($article["id"])->category["category_alias"] }}/{{$article["alias"] }}.html">{{ $article["title"] }}</a>
         </h2>
         <p class="lead">
-            by <a href="index.php">{{ $article["author"] }}</a>
+            by <label class="control-label">{{ $article["author"] }}</label>
         </p>
         <p><span class="glyphicon glyphicon-time"></span> Đăng
             lúc {{ date('H:i:s', strtotime($article["created_date"]))." thứ ".date('l', strtotime($article["created_date"])).",

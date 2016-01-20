@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use App\Article;
 use App\Category;
 
-class BlogController extends Controller {
+class BlogController extends FrontController {
 
     public function index() {
         $category = new Category();
@@ -13,7 +13,7 @@ class BlogController extends Controller {
 
         $listArticle = Article::orderBy('created_date', 'desc')->paginate(3);
 
-        return view('blog.index',compact('listCategory', 'listArticle'));
+        return view('front.blog.index',compact('listCategory', 'listArticle'));
     }
 
     public function getArticles($cate){
@@ -27,7 +27,7 @@ class BlogController extends Controller {
             if(count($listArticle) == 0) {
                 $message = 'Chưa có bài viết nào.';
             }
-            return view('blog.index',compact('listCategory', 'listArticle', 'message', 'category_name'));
+            return view('front.blog.index',compact('listCategory', 'listArticle', 'message', 'category_name'));
         }
     }
 
@@ -46,11 +46,12 @@ class BlogController extends Controller {
             } else {
                 $article = Article::where("alias", $arti)->first();
                 if($article != null) {
-                    $listArticle = Article::where('category_id', $category["id"])->orderBy('created_date', 'desc')->get()->take(2)->toArray();
-                    return view('blog.article',compact('listCategory', 'listArticle', 'message', 'category_name', 'article'));
+                    $listArticle = Article::where('category_id', $category["id"])->where("id", '!=', $article["id"])
+                        ->orderBy('created_date', 'desc')->get()->take(2)->toArray();
+                    return view('front.blog.article',compact('listCategory', 'listArticle', 'message', 'category_name', 'article'));
                 } else {
                     $message = "Không tìm thấy bài viết phù hợp";
-                    return view('blog.error',compact('listCategory', 'message', 'category_name'));
+                    return view('front.blog.error',compact('listCategory', 'message', 'category_name'));
                 }
 
             }

@@ -1,5 +1,7 @@
 @extends('layouts.homemaster')
 
+@section('title', $article["title"] )
+
 @section('menu-category')
     @foreach($listCategory as $category)
         <li>
@@ -21,7 +23,7 @@
         {{ $article["title"] }}
     </h2>
     <p class="lead">
-        by <a href="index.php">{{ $article["author"] }}</a>
+        by <label class="control-label">{{ $article["author"] }}</label>
     </p>
     <p><span class="glyphicon glyphicon-time"></span> Đăng
         lúc {{ date('H:i:s', strtotime($article["created_date"]))." thứ ".date('l', strtotime($article["created_date"])).",
@@ -29,8 +31,6 @@
             năm ".date('Y', strtotime($article["created_date"])) }}
     </p>
     <p><strong>{{ $article["summary"] }}</strong></p>
-    <hr>
-    <img class="img-responsive" style="margin: 0 auto;" src="http://placehold.it/500x300" alt="">
     <hr>
     <div class="contentArticle">
         <p>{!! htmlspecialchars_decode($article["content"]) !!}</p>

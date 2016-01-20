@@ -10,9 +10,9 @@
     <div class="row">
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
-                <li><a href="/">Trang chủ</a></li>
-                <li><a href="/article">Quản lý bài viết</a></li>
-                <li><a href="/article/new">Thêm bài viết</a></li>
+                <li><a href="/admin/">Trang chủ</a></li>
+                <li><a href="/admin/article">Quản lý bài viết</a></li>
+                <li><a href="/admin/article/new">Thêm bài viết</a></li>
             </ol>
         </div>
     </div>
@@ -23,7 +23,7 @@
                 <div class="box-header">
                     <div class="box-name">
                         <i class="fa fa-search"></i>
-                        <span>Thêm bài viết</span>
+                        <span>@yield('box-name', 'Thêm bài viết')</span>
                     </div>
                     <div class="box-icons">
                         <a class="collapse-link">
@@ -39,20 +39,21 @@
                     <div class="no-move"></div>
                 </div>
                 <div class="box-content">
-                    <form class="form-horizontal" role="form" name="frmAddArticle" action="/article/add" method="post">
+                    <form class="form-horizontal" role="form" name="frmAddArticle" action="@yield('action', '/admin/article/add')" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        @yield('id')
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Tiêu đề</label>
                             <div class="col-sm-4">
                                 <textarea name="title" class="form-control" placeholder="Tiêu đề" data-toggle="tooltip"
-                                          data-placement="bottom" title="Tiêu đề"></textarea>
+                                          data-placement="bottom" title="Tiêu đề">@yield('article-title')</textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Tóm lược</label>
                             <div class="col-sm-6">
                                 <textarea name="summary" class="form-control" placeholder="Tóm lược"
-                                          data-toggle="tooltip" data-placement="bottom" title="Tóm lược"></textarea>
+                                          data-toggle="tooltip" data-placement="bottom" title="Tóm lược">@yield('article-summary')</textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -60,7 +61,7 @@
                             <div class="col-sm-10">
                                 <script language="javascript" src="{{ asset("ckeditor/ckeditor.js") }}"
                                         type="text/javascript"></script>
-                                <textarea class="form-control" id="areaContent" name="areaContent"></textarea>
+                                <textarea class="form-control" id="areaContent" name="areaContent">@yield('article-content')</textarea>
                                 <input type="hidden" id="articleContent" name="articleContent" value="">
                                 <script type="text/javascript">
                                     CKEDITOR.replace("areaContent", CKEDITOR.config.allowedContent=true);
@@ -76,7 +77,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Chuyên mục</label>
                             <div class="col-sm-3">
-                                <select name="category" class="form-control">
+                                <select id="slcCategory" name="category" class="form-control">
                                     <option value="0">---- Chuyên mục ---</option>
                                     <?php
                                         $category = new \App\Category();
@@ -86,18 +87,19 @@
                                         <option value="{{ $cat["id"] }}">{{ $cat["category_name"] }}</option>
                                     @endforeach
                                 </select>
+                                @yield('article-category')
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Tác giả</label>
                             <div class="col-sm-3">
                                 <input type="text" name="author" rows="5" class="form-control" placeholder="Tác giả"
-                                       data-toggle="tooltip" data-placement="bottom" title="Tác giả">
+                                       data-toggle="tooltip" data-placement="bottom" title="Tác giả" value="@yield('article-author')">
                             </div>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-success" type="submit" name="btnAdd" onClick="getContent()">Thêm bài viết</button>
-                            <button class="btn btn-default" type="reset" name="btnReset">Nhập lại</button>
+                            <button class="btn btn-success" type="submit" name="btnAdd" onClick="getContent()">@yield('btnAE', 'Thêm bài viết')</button>
+                            @yield('btnReset', '<button class="btn btn-default" type="reset" name="btnReset">Nhập lại</button>')
                         </div>
                     </form>
                 </div>

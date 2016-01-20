@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -8,15 +8,15 @@ use View;
 use Validator;
 use Request;
 
-class HomeController extends Controller
+class HomeController extends AdminController
 {
-
     public function index()
     {
         if (Auth::check()) {
-            return view::make('/index');
-        } else {
-            return view::make('/login');
+            return view::make('admin/index');
+        }
+        else {
+            return view::make('admin/login');
         }
     }
 
@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         $validator = Validator::make(request::all(), $rules, $messages);
         if ($validator->fails()) {
-            return redirect('/login')->withInput(request::except('password'))->withErrors($validator);
+            return view::make('admin/login')->withInput(request::except('password'))->withErrors($validator);
         }
 
         $userdata = array(
@@ -44,15 +44,15 @@ class HomeController extends Controller
         );
 
         if (Auth::attempt($userdata)) {
-            return view::make('/index');
+            return view::make('admin/index');
         } else {
-            return view::make('/login');
+            return view::make('admin/login');
         }
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('login');
+        return redirect('admin/login');
     }
 }

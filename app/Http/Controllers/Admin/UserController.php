@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends Controller {
+class UserController extends AdminController {
 
     public function listUser() {
         $user = new User();
         $list = $user->all()->toArray();
-        return view('user.index')->with('listUser', $list);
+        return view('admin.user.index')->with('listUser', $list);
 
     }
 
     public function add(Request $request) {
-        $all = $request -> all();
+
     }
 
     public function delete() {
@@ -24,6 +24,6 @@ class UserController extends Controller {
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->action('UserController@listUser');
+        return redirect('/admin/user/');
     }
 }

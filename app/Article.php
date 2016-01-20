@@ -9,6 +9,7 @@ class Article extends Model implements Authenticatable
 {
     use \Illuminate\Auth\Authenticatable;
     protected $primaryKey = 'id';
+    protected $guarded = array('id');
     //
     public function category()
     {

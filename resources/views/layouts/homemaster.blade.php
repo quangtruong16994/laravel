@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home</title>
+    <title>@yield('title')</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -24,12 +24,12 @@
             margin: 50px 0;
         }
         .contentArticle p{
-            text-indent: 30px;
             text-align: justify;
         }
+        .contentArticle p img{
+            width: 100%;
+        }
     </style>
-
-
 </head>
 
 <body>
@@ -46,7 +46,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/home">Blog</a>
+            <a class="navbar-brand" href="/">Blog</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
