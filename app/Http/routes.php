@@ -28,6 +28,7 @@ Route::get('login', [
 ]);
 
 Route::group(['middleware' => ['web']], function () {
+    //group route trang admin
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\HomeController@index');
 
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
+        //group route trang admin/user
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', 'Admin\UserController@listUser');
 
@@ -59,6 +61,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
 
+        //group route trang admin/article
         Route::group(['prefix' => 'article'], function () {
             Route::get('/', 'Admin\ArticleController@showArticles');
 
@@ -66,13 +69,21 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::post('update', 'Admin\ArticleController@update');
 
+            Route::post('updateAjax', 'Admin\ArticleController@update');
+
+            Route::post('updateTitle', 'Admin\ArticleController@updateTitle');
+
             Route::post('delete', 'Admin\ArticleController@delete');
+
+            Route::post('deleteAjax', 'Admin\ArticleController@delete');
 
             Route::get('new', function () {
                 return view('admin.article.new');
             });
 
             Route::post('add', 'Admin\ArticleController@addArticle');
+
+            Route::post('addAjax', 'Admin\ArticleController@addArticleAjax');
         });
     });
 });
@@ -81,7 +92,7 @@ Route::group(['prefix' => '/'], function () {
 
     Route::get('/', 'Front\BlogController@index');
 
-    Route::get('/{cate}', 'Front\BlogController@getArticles');
+    Route::get('{cate}', 'Front\BlogController@getArticles');
 
-    Route::get('/{cate}/{arti}', 'Front\BlogController@getArticle');
+    Route::get('{cate}/{arti}', 'Front\BlogController@getArticle');
 });

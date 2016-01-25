@@ -20,6 +20,8 @@
             word-wrap: break-word;
         }
     </style>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 <!--Start Header-->
@@ -72,21 +74,23 @@
     <div class="row">
         <div id="sidebar-left" class="col-xs-2 col-sm-2">
             <ul class="nav main-menu">
-                <li><a href="/admin/"> <i class="fa fa-dashboard"></i> <span
+                <li><a href="/admin/" @yield('active-menu-home')> <i class="fa fa-dashboard"></i> <span
                                 class="hidden-xs"
                         >Trang chủ</span>
                     </a></li>
 
-                <li><a href="/admin/user"> <i class="fa fa-user"></i> <span
+                <li><a href="/admin/user" @yield('active-menu-user')> <i class="fa fa-user"></i> <span
                                 class="hidden-xs"
                         >Quản lý tài khoản</span>
                     </a>
+                    @yield('load-users')
                 </li>
-                <li><a href="/admin/article"> <i
+                <li><a href="/admin/article" @yield('active-menu-article')> <i
                                 class="fa fa-file-text"></i> <span
                                 class="hidden-xs"
                         >Quản lý bài viết</span>
                     </a>
+                    @yield('load-article')
                 </li>
             </ul>
         </div>

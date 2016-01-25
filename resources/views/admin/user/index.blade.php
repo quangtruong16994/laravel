@@ -4,7 +4,7 @@
 
 @section('user', Auth::user()["fullname"])
 
-@section('active-menu', 'class="active"')
+@section('active-menu-user', 'class="active"')
 
 @section('content')
     <div class="row">
@@ -36,13 +36,13 @@
                            id="accountTable">
                         <thead>
                         <tr>
-                            <th class="th center">ID</th>
-                            <th class="th center">Tên đăng nhập</th>
-                            <th class="th center">Hộp thư</th>
-                            <th class="th center">Họ tên</th>
-                            <th class="th center">Số điện thoại</th>
-                            <th class="th center">Địa chỉ</th>
-                            <th colspan="2" class="th center">---</th>
+                            <th class="th center" style="width: 8%">ID</th>
+                            <th class="th center" style="width: 25%">Tên đăng nhập</th>
+                            <th class="th center" style="width: 30%">Hộp thư</th>
+                            <th class="th center" style="width: 30%">Họ tên</th>
+                            <th class="th center" style="width: 20%">Số điện thoại</th>
+                            <th class="th center" style="width: 30%">Địa chỉ</th>
+                            <th colspan="2" class="th center" style="width: 20%">---</th>
                             {{--                            <th class="th center">Xem</th>
                                                         <th class="th center">Sửa</th>
                                                         <th class="th center">Xóa</th>--}}
@@ -91,7 +91,6 @@
             </div>
         </div>
     </div>
-
 
     @yield('update-modal')
 @endsection

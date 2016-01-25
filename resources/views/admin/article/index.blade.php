@@ -4,7 +4,22 @@
 
 @section('user', Auth::user()["fullname"])
 
-@section('active-menu', 'class="active"')
+@section('active-menu-article', 'class="active"')
+
+@section('load-article')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/articles",
+                type: "get",
+                dataType: "json",
+                success: function (result) {
+                    $('#listArticle').html(result);
+                }
+            });
+        });
+    </script>
+@endsection
 
 @section('content')
     <div class="row">
@@ -23,7 +38,7 @@
     </div>
 
     <script>
-        /*$(window).on('hashchange', function() {
+        $(window).on('hashchange', function () {
             if (window.location.hash) {
                 var page = window.location.hash.replace('#', '');
                 if (page == Number.NaN || page <= 0) {
@@ -32,8 +47,8 @@
                     getArticles(page);
                 }
             }
-        });*/
-        $(document).ready(function() {
+        });
+        $(document).ready(function () {
             $(document).on('click', '.pagination a', function (e) {
                 getArticles($(this).attr('href').split('page=')[1]);
                 e.preventDefault();
@@ -41,7 +56,7 @@
         });
         function getArticles(page) {
             $.ajax({
-                url : '?page=' + page,
+                url: '?page=' + page,
                 dataType: 'json',
             }).done(function (data) {
                 $('#listArticle').html(data);

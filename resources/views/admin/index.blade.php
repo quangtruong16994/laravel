@@ -4,4 +4,4 @@
 
 @section('user', Auth::user()["fullname"])
 
-@section('active-menu', 'class="active"')
+@section('active-menu-home', 'class="active"')

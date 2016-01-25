@@ -8,6 +8,7 @@ use Request;
 use Response;
 use Auth;
 use View;
+use Validator;
 
 class ArticleController extends AdminController {
 
@@ -29,6 +30,29 @@ class ArticleController extends AdminController {
     }
 
     public function addArticle(Request $request) {
+
+        $rules = array(
+            'title' => 'required',
+            'summary' => 'required',
+            'articleContent' => 'required',
+            'category' => 'required|not_in:0',
+            'author' => 'required'
+        );
+        $messages = [
+            'title.required' => 'Bài viết cần có tiêu đề.',
+            'summary.required' => 'Tóm lược không được trống.',
+            'articleContent.required' => 'Nội dung không được trống.',
+            'category.required' => 'Chọn chuyên mục.',
+            'category.not_in' => 'Chọn chuyên mục.',
+            'author.required' => 'Nhập tên tác giả.'
+        ];
+
+        $validator = Validator::make(request::all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect('/admin/article/new')->withInput($request::all())->withErrors($validator);
+        }
+
         $all = $request::all();
         $title = $all["title"];
         $alias = $this->remove_utf8($title);
@@ -55,6 +79,36 @@ class ArticleController extends AdminController {
         return view("admin.article.new");
     }
 
+    public function addArticleAjax() {
+
+        $title = isset($_POST["title"]) ? $_POST["title"] : "";
+        $summary = isset($_POST["summary"]) ? $_POST["summary"] : "";
+        $content = isset($_POST["content"]) ? $_POST["content"] : "";
+        $category = isset($_POST["category"]) ? $_POST["category"] : "";
+        $author = isset($_POST["author"]) ? $_POST["author"] : "";
+
+        if (empty($title) || empty($summary) || empty($content) || empty($category) || empty($author)) {
+            return false;
+        }
+
+        $data = array(
+            "title" => $title,
+            "alias" => $this->remove_utf8($title),
+            "summary" => $summary,
+            "content" => $content,
+            "category_id" => $category,
+            "author" => $author,
+            "status" => 1,
+            "creator_id" => Auth::user()["id"],
+            "created_date" => date("Y-m-d H:i:s")
+        );
+
+        $article = new Article();
+        $article->insert($data);
+
+        return view('admin.article.new');
+    }
+
     public function getArticle() {
         $id = Input::get('id');
         $article = Article::find($id);
@@ -71,7 +125,7 @@ class ArticleController extends AdminController {
         //$user = User::find($id);
         //$user->delete();
 
-        return redirect('/admin/article/');
+        return redirect("admin/article/");
         //hoặc em có thể redirect kiểu khác
         //return redirect('url_can_redirect') <= cách này thì nó bớt phải tính toán hơn
     }
@@ -88,8 +142,19 @@ class ArticleController extends AdminController {
         $article["author"] = $all["author"];
 
         $article->save();
-        return redirect('/admin/article/');
+        return redirect('admin/article/');
     }
+
+    public function updateTitle(Request $request){
+        $all = $request::all();
+        $article = Article::find($all["id"]);
+
+        $article["title"] = $all["title"];
+
+        $article->save();
+        return redirect('admin/article/');
+    }
+
 
     function remove_utf8($string)
     {

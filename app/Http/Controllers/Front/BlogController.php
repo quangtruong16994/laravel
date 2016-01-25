@@ -9,7 +9,7 @@ class BlogController extends FrontController {
 
     public function index() {
         $category = new Category();
-        $listCategory = $category->all()->toArray();
+        $listCategory = $category->all(["id", "category_alias", "category_name"])->toArray();
 
         $listArticle = Article::orderBy('created_date', 'desc')->paginate(3);
 
@@ -18,7 +18,7 @@ class BlogController extends FrontController {
 
     public function getArticles($cate){
         $category = new Category();
-        $listCategory = $category->all()->toArray();
+        $listCategory = $category->all(["id", "category_alias", "category_name"])->toArray();
         $category = Category::where("category_alias", $cate)->first();
         if($category != null) {
             $message = "";
@@ -31,16 +31,18 @@ class BlogController extends FrontController {
         }
     }
 
+    //lấy dữ liệu đưa lên article.blade.php
+    //tham số category alias và article alias
     public function getArticle($cate, $arti) {
-        $arti = substr($arti, 0, -5);
+        $arti = substr($arti, 0, -5);       //cắt chuối ".html" cuối article alias
         $category = new Category();
-        $listCategory = $category->all()->toArray();
-        $category = Category::where("category_alias", $cate)->first();
+        $listCategory = $category->all(["id", "category_alias", "category_name"])->toArray();
+        $category = Category::where("category_alias", $cate)->first();      //lấy category đầu tiên có alias bằng tham số category alias
         if($category != null) {
             $articles = new Article();
             $message = "";
             $category_name = $category["category_name"];
-            $listArticle = $articles->all()->where('category_id', $category["id"])->toArray();
+            $listArticle = $articles->all(["id", "title", "alias", "summary", "content", "image", "category_id", "author", "created_date"])->where('category_id', $category["id"])->toArray();      //lấy tất cả bài viết trong category
             if(count($listArticle) == 0) {
                 $message = 'Không có bài viết nào.';
             } else {
@@ -59,6 +61,7 @@ class BlogController extends FrontController {
         }
     }
 
+    //hàm tạo bỏ dấu. chuyển thành alias
     function remove_utf8($string)
     {
         $trans = array(
