@@ -65,6 +65,4 @@
             });
         }
     </script>
-
-    @yield('update-modal')
 @endsection

@@ -22,6 +22,12 @@
 |
 */
 
+Route::get('/test', 'TestController@switchCache');
+
+Route::get('/memcached', function(){
+    return view('memcache');
+});
+
 Route::get('login', [
     'middleware' => 'auth',
     'uses' => 'Admin\HomeController@login'
@@ -40,7 +46,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('/logout', 'Admin\HomeController@logout');
 
-
+        Route::post('/switchCache', 'Admin\HomeController@switchCache');
 
         //group route trang admin/user
         Route::group(['prefix' => 'user'], function () {

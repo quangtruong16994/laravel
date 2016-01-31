@@ -156,6 +156,14 @@
                                 var author = $('#author').val();
                                 var token = $('#token').val();
 
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "newestOnTop": true,
+                                    "timeOut": "5000",
+                                    "positionClass": "toast-top-right",
+                                    "progressBar": true,
+                                }
+
                                 $.ajaxSetup({
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -173,8 +181,10 @@
                                         author: author
                                     },
                                     success: function (data) {
-                                        alert("Thêm thành công.");
-                                        console.log(data);
+                                        toastr["success"]("Thêm bài viết thành công!");
+                                    },
+                                    fail: function(data) {
+                                        toastr["error"]("Không thể thêm bài viết!");
                                     }
                                 });
                             }

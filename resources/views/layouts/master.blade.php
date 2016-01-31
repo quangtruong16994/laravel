@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="{{ asset("css/admin.css") }}">
 
+    <link rel="stylesheet" href="{{ asset("css/toast.css") }}">
+
     <script src="{{ asset("js/jquery.min.js") }}"></script>
 
     <style>
@@ -40,9 +42,19 @@
                             <input type="text" placeholder="search"/> <i class="fa fa-search"></i>
                         </div>
                     </div>
-                    <div class="col-xs-4 col-sm-8 top-panel-right">
+                    <label class="control-label" style="float: left">Chuyển cache: </label>
+                    <div class="col-sm-2">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="switchCache" class="onoffswitch-checkbox" id="switchCache" @yield('checkSwitchCache')>
+                            <label class="onoffswitch-label" for="switchCache">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                        @yield('switchCache')
+                    </div>
+                    <div class="col-xs-4 col-sm-4 top-panel-right" style="float: right">
                         <ul class="nav navbar-nav pull-right panel-menu">
-
                             <li class="dropdown"><a href="#" class="dropdown-toggle account" data-toggle="dropdown">
                                     <div class="avatar">
                                         <img src="{{ asset("imgs/avatar.jpg") }}"
@@ -116,7 +128,7 @@
 <!-- All functions for this theme + document.ready processing -->
 <script src="{{ asset("js/devoops.js") }}"></script>
 
-<script src="{{ asset("js/jquery.dataTables.min.js") }}"></script>
+<script src="{{ asset("js/toast.js") }}"></script>
 
 </body>
 </html>

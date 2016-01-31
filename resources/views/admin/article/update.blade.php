@@ -67,6 +67,15 @@
             var author = $('#author').val();
             var token = $('#token').val();
 
+
+            toastr.options = {
+                "closeButton": true,
+                "newestOnTop": true,
+                "timeOut": "5000",
+                "positionClass": "toast-top-right",
+                "progressBar": true,
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -85,9 +94,11 @@
                     author: author
                 },
                 success: function (data) {
-                    alert("Sửa thành công.");
+                    toastr["success"]("Sửa bài viết thành công!");
                     $('#listArticle').html(data);
-                    console.log(data);
+                },
+                fail: function(data) {
+                    toastr["error"]("Không thể sửa bài viết!");
                 }
             });
         }

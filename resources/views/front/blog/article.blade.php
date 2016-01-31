@@ -17,6 +17,7 @@
 @section('articles')
     <div class="text-center">
         <label align="center">{{ isset($message) ? $message : "" }}</label>
+        <label align="center">{{ isset($mess) ? $mess : "" }}</label>
     </div>
 
     <h2>
@@ -41,7 +42,7 @@
 @section('relateArticle')
     <h4>Có thể bạn quan tâm</h4>
     <ul class="list-unstyled">
-        @foreach($listArticle as $article)
+        @foreach($relateArticles as $article)
             <li><a href="/{{ \App\Article::find($article["id"])->category["category_alias"] }}/{{$article["alias"] }}.html">- {{ $article["title"] }}</a></li>
         @endforeach
     </ul>

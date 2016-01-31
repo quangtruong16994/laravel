@@ -73,8 +73,7 @@ class ArticleController extends AdminController {
             "created_date" => date("Y-m-d H:i:s")
         );
 
-        $article = new Article();
-        $article->insert($data);
+        Article::insert($data);
 
         return view("admin.article.new");
     }
@@ -103,8 +102,7 @@ class ArticleController extends AdminController {
             "created_date" => date("Y-m-d H:i:s")
         );
 
-        $article = new Article();
-        $article->insert($data);
+        Article::insert($data);
 
         return view('admin.article.new');
     }
@@ -154,7 +152,6 @@ class ArticleController extends AdminController {
         $article->save();
         return redirect('admin/article/');
     }
-
 
     function remove_utf8($string)
     {

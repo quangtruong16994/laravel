@@ -55,4 +55,20 @@ class HomeController extends AdminController
         Auth::logout();
         return redirect('admin/login');
     }
+
+    //chuyển đổi giữa các cache
+    public function switchCache()
+    {
+        //lấy array return từ cache.php
+        $cache = include("../config/cache.php");
+        //nếu đang dùng cache redis thì chuyển sang file, và ngược lại
+        if ($cache["default"] == "redis") {
+            $cache["default"] = "file";
+        } else {
+            $cache["default"] = "redis";
+        }
+
+        //đưa lại vào file cache.php
+        file_put_contents("../config/cache.php", '<?php return ' . var_export($cache, true) . ';');
+    }
 }

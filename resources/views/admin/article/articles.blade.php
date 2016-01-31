@@ -22,7 +22,7 @@
                         <th class="th center" style="width: 50%">Tiêu đề</th>
                         <th class="th center" style="width: 10%">Tác giả</th>
                         <th class="th center" style="width: 13%">Chuyên mục</th>
-                        <th class="th center" style="width: 10%">Trạng thái</th>
+                        <th class="th center" style="width: 15%">Trạng thái</th>
                         <th colspan="3" class="th center" style="width: 20%">---</th>
                     </tr>
                     </thead>
@@ -79,6 +79,13 @@
 <script language="javascript">
     function deleteAjax(id) {
         event.preventDefault();
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": true,
+            "timeOut": "5000",
+            "positionClass": "toast-top-right",
+            "progressBar": true,
+        }
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -92,9 +99,11 @@
                 id: id
             },
             success: function (data) {
-                alert("Xóa thành công.");
                 $('#listArticle').html(data);
-                console.log(data);
+                toastr["success"]("Xóa bài viết thành công!");
+            },
+            fail: function(data) {
+                toastr["error"]("Không thể xóa bài viết!");
             }
         });
     }
@@ -162,15 +171,15 @@
                             title: title
                         },
                         success: function (data) {
-                            alert("Sửa tiêu đề thành công.");
                             $('#listArticle').html(data);
-                            console.log(data);
+                            toastr["success"]("Sửa tiêu đề bài viết thành công!");
+                        },
+                        fail: function(data) {
+                            toastr["error"]("Không thể sửa tiêu đề bài viết!");
                         }
                     });
                 });
             });
         });
-
-
     });
 </script>

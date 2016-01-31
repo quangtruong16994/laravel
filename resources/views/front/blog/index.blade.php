@@ -17,6 +17,7 @@
 @section('articles')
     <div class="text-center">
         <label align="center">{{ isset($message) ? $message : "" }}</label>
+        <label align="center">{{ isset($mess) ? $mess : "" }}</label>
     </div>
 
     @foreach($listArticle as $article)
