@@ -94,11 +94,12 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
+//middleware blogget, blogput khai báo trong Http\Kernel.php
 Route::group(['prefix' => '/'], function () {
 
-    Route::get('/', 'Front\BlogController@index');
+    Route::get('/', 'Front\BlogController@index')->middleware(['blogget', 'blogput']);;
 
-    Route::get('{cate}', 'Front\BlogController@getArticles');
+    Route::get('{cate}', 'Front\BlogController@getArticles')->middleware(['blogget', 'blogput']);;
 
-    Route::get('{cate}/{arti}', 'Front\BlogController@getArticle');
+    Route::get('{cate}/{arti}', 'Front\BlogController@getArticle')->middleware(['blogget', 'blogput']);;
 });
