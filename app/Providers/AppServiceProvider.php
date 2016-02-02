@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Cache,Session,SMemcacheStore,SSessionMemcacheDriver,Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Add new type cache for SCMS
+        Cache::extend('memcache', function($app){
+            $servers = $this->app['config']['cache.stores.memcache.servers'];
+            $prefix = $this->app['config']['cache.prefix'];
+            $memcache = CCCache::MemcacheConnect($servers);
+            return Cache::repository(new SMemcacheStore($memcache,$prefix));
+        });
+        //add new type session
+        Session::extend('memcache', function($app){
+            $manager = new SSessionMemcacheDriver($app);
+            return $manager->driver('memcache');
+        });
+        //add new blade style
+        Blade::extend(function($value, $compiler){
+            $value = preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
+            $value = preg_replace('/@unset\((?:\$|(?:\'))(.*?)(?:\'|)\)/', '<?php unset(\$$1); ?>', $value);
+            $value = preg_replace('/(\s*)@(break|continue)(\s*)/', '$1<?php $2; ?>$3', $value);
+            return $value;
+        });
     }
 
     /**
