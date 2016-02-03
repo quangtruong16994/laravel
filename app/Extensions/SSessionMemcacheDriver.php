@@ -12,7 +12,7 @@ class SSessionMemcacheDriver extends Manager  {
      */
     protected function createMemcacheDriver()
     {
-        $servers = $this->app['config']['cache.stores.all_session.servers'];
+        $servers = $this->app['config']['cache.stores.memcache.servers'];
         return new MemcacheSessionHandler($this->connect($servers), array());
     }
 
