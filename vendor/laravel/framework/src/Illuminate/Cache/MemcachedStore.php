@@ -88,7 +88,7 @@ class MemcachedStore extends TaggableStore implements Store
     /**
      * Store multiple items in the cache for a given number of minutes.
      *
-     * @param  array  $values
+     * @param  array  $valuess
      * @param  int  $minutes
      * @return void
      */
