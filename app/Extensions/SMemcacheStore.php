@@ -1,8 +1,11 @@
 <?php
+namespace App\Extensions;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Cache\TaggableStore;
+use Memcache,MyHelper,Config;
 
-class SMemcacheStore extends TaggableStore implements Store {
+class SMemcacheStore implements Store{
+//class SMemcacheStore extends TaggableStore implements Store{
 
     /**
      * The Memcached instance.
@@ -41,9 +44,9 @@ class SMemcacheStore extends TaggableStore implements Store {
      *
      */
     public function set_connect($name_connect,$prefix = ''){
-        $this->prefix = strlen($prefix) > 0 ? $prefix.':' : $_ENV['SCMS_CACHE_PREFIX'].':';
+        $this->prefix = strlen($prefix) > 0 ? $prefix.':' : Config::get('cache.prefix').':';
         $servers = Config::get('cache.connections.'.$name_connect);
-        $this->memcache = CCCache::MemcacheConnect($servers);
+        $this->memcache = MyHelper::MemcacheConnect($servers);
         return $this;
     }
 
@@ -149,6 +152,29 @@ class SMemcacheStore extends TaggableStore implements Store {
     public function getPrefix()
     {
         return $this->prefix;
+    }
+
+    /**
+     * Retrieve multiple items from the cache by key.
+     *
+     * Items not found in the cache will have a null value.
+     *
+     * @param  array  $keys
+     * @return array
+     */
+    public function many(array $keys){
+        return false;
+    }
+
+    /**
+     * Store multiple items in the cache for a given number of minutes.
+     *
+     * @param  array  $values
+     * @param  int  $minutes
+     * @return void
+     */
+    public function putMany(array $values, $minutes){
+        return false;
     }
 
 }

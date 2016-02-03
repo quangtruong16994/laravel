@@ -12,6 +12,8 @@ class MyHelper{
             $server['host'] = '127.0.0.1';
             $server['port'] = 11211;
             $server['weight'] = '100';
+        }elseif(count($server)==1){
+            $server=$server[0];
         }
         $memcache = new Memcache();
         if($memcache->connect($server['host'], $server['port'], $server['weight'])){return $memcache;}

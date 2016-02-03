@@ -1,4 +1,5 @@
 <?php
+namespace App\Extensions;
 
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler;
 use Illuminate\Support\Manager;

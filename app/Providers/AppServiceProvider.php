@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Providers;
-
+use MyHelper;
+use App\Extensions\SMemcacheStore;
+use App\Extensions\SSessionMemcacheDriver;
 use Illuminate\Support\ServiceProvider;
-use Cache,Session,SMemcacheStore,SSessionMemcacheDriver,Blade;
+use Cache,Session,Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         Cache::extend('memcache', function($app){
             $servers = $this->app['config']['cache.stores.memcache.servers'];
             $prefix = $this->app['config']['cache.prefix'];
-            $memcache = CCCache::MemcacheConnect($servers);
+            $memcache = MyHelper::MemcacheConnect($servers);
             return Cache::repository(new SMemcacheStore($memcache,$prefix));
         });
         //add new type session
